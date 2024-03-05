@@ -3,9 +3,9 @@ load_dotenv()
 
 from langchain.schema import SystemMessage, HumanMessage
 
-from llm_commons.proxy.base import set_proxy_version
-from llm_commons.proxy.identity import AICoreProxyClient
-from llm_commons.langchain.proxy import init_llm
+from gen_ai_hub.proxy import set_proxy_version
+from gen_ai_hub.proxy import GenAIHubProxyClient
+from gen_ai_hub.proxy.langchain import init_llm
 
 # import logging
 
@@ -15,9 +15,8 @@ from llm_commons.langchain.proxy import init_llm
 # requests_log.setLevel(logging.DEBUG)
 # requests_log.propagate = True
 
-set_proxy_version('aicore') # for an AI Core proxy
-proxy_client = AICoreProxyClient()
-proxy_client.get_deployments() # to cache the deployment data
+set_proxy_version('gen-ai-hub') # for an AI Core proxy
+proxy_client = GenAIHubProxyClient()
 
 llm = init_llm(model_name="gpt-35-turbo-16k", 
                proxy_client=proxy_client,
@@ -32,7 +31,6 @@ messages = [
         content="Translate this sentence from English to French. I love programming."
     ),
 ]
-print("Up to here ---------------------")
-explanation = llm(messages)
+explanation = llm.invoke(messages)
 
 print(explanation)

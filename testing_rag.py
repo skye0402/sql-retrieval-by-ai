@@ -19,10 +19,9 @@ from langchain.vectorstores.chroma import Chroma
 from langchain.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
-
-from llm_commons.proxy.base import set_proxy_version
-from llm_commons.proxy.identity import AICoreProxyClient
-from llm_commons.langchain.proxy import init_llm, init_embedding_model
+from gen_ai_hub.proxy import set_proxy_version
+from gen_ai_hub.proxy import GenAIHubProxyClient
+from gen_ai_hub.proxy.langchain import init_llm, init_embedding_model
 
 FOLDER_NAME = "./tmp"
 SRC_FOLDER = "./src"
@@ -103,7 +102,7 @@ def retrieve_data(vector_db: Chroma, llm: BaseLanguageModel, query: str, languag
 def main()->None:
     """ Main routine of program. """
     set_proxy_version('aicore') # for an AI Core proxy
-    proxy_client = AICoreProxyClient()
+    proxy_client = GenAIHubProxyClient()
     proxy_client.get_deployments() # to cache the deployment data
 
     embed = init_embedding_model(model_name="text-embedding-ada-002")

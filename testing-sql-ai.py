@@ -7,20 +7,20 @@ from langchain.utilities import SQLDatabase
 
 from langchain_experimental.sql import SQLDatabaseChain
 
-from llm_commons.proxy.base import set_proxy_version
-from llm_commons.proxy.identity import AICoreProxyClient
-from llm_commons.langchain.proxy import init_llm
+from gen_ai_hub.proxy import set_proxy_version
+from gen_ai_hub.proxy import GenAIHubProxyClient
+from gen_ai_hub.proxy.langchain import init_llm
 
 import logging
 
 logging.basicConfig()
-logging.getLogger().setLevel(logging.ERROR)
+logging.getLogger().setLevel(logging.INFO)
 requests_log = logging.getLogger("requests.packages.urllib3")
 requests_log.setLevel(logging.DEBUG)
 requests_log.propagate = True
 
 set_proxy_version('aicore') # for an AI Core proxy
-proxy_client = AICoreProxyClient()
+proxy_client = GenAIHubProxyClient()
 proxy_client.get_deployments() # to cache the deployment data
 
 # Which tables contain information about sales organizations and what are their names?
